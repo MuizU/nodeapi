@@ -2,13 +2,13 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const morgan = require("morgan");
+const bodyParser = require("body-parser");
+const expressValidator = require('express-validator');
 const dotenv = require("dotenv");
 dotenv.config();
 
 // connect to mongodb
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("DB Connected"));
+mongoose.connect(process.env.MONGO_URI).then(() => console.log("DB Connected"));
 
 mongoose.connection.on("error", (err) => {
   console.log(err);
@@ -19,7 +19,8 @@ const postRoutes = require("./routes/post");
 
 // middleware
 app.use(morgan("dev"));
-
+app.use(bodyParser.json());
+app.use(expressValidator());
 app.use("/", postRoutes);
 
 const PORT = process.env.PORT;
