@@ -1,7 +1,8 @@
-const getPosts = (req, res) => {
-    res.send("Hello World from node js in new file")
-}
+const express = require("express");
 
-module.exports = {
-    getPosts
-}
+const {getPosts} = require("../controllers/post.js");
+const router = express.Router();
+
+router.get('/', getPosts);
+
+module.exports = router
