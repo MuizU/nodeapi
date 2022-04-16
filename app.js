@@ -5,6 +5,9 @@ const morgan = require("morgan");
 // bring in routes
 const { getPosts } = require("./routes/post");
 
+// middleware
+app.use(morgan("dev"));
+
 app.get("/", getPosts);
 
 const PORT = 8080;
